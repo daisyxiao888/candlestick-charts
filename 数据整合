@@ -1,0 +1,26 @@
+1、concatenate
+pd.concat(objs,axis=0,join='outer',join_axes=None,ignore_index=False,keys=None,levels=None,names=None,verify_integrity=False,copy=True)
+#axis是指以行为标准或者以列为标准,默认axis=0，以列的方式对齐。 axis = 1 表示以行对齐
+#当合并出现空值时，会出现警告内容，消除不影响结果的警告： 
+import warnings 
+warnings.filterwarnings('ignore') 
+#使用dropna去掉缺失值。how='any'表示只要任何一行有缺失值，都要去掉。how='all'表示当一整行都有缺失值时，删去一整行。
+pd.concat([ddf3,ddf4],axis = 1).dropna(how = 'any') 
+
+#：默认join='outer'，表示所有这些DataFrame里面有的数据都要放进来。Join='inner'表示只展示这些数据中共有的数据。
+#：join_axes表示把这个DataFrame合并的方式是保留其中一个表格的所有 index为基准。
+pd.concat([ddf3,ddf4],axis = 1, join_axes=[ddf4.index]) 
+  
+pd.concat([ddf3,ddf4], ignore_index = True) #此处ignore_index = True表示忽略每一行的名字，保留每一列的名字。
+pd.concat([ddf3,ddf4], axis = 1, ignore_index = True)  #此处ignore_index=True表示忽略每一列的名字，保留每一行的名字。
+
+2、merge
+pd.merge(left,right,on = 'column',how='inner',left_on= None,right_on=None,left_index=False,right_index=False,sort=True,
+suffixes=('_x','_y'),copy=True,indicator=False,validate=None）
+#只能合并两个表格，并且表格的名字叫左表格和右表格。
+#how表示合并的方式,默认为inner内连接。
+#on表示以某一列为基准合并两个表格。所以merge不一定要按照行或者列进行合并，可以选中任何一列的数据，让它以这一列进行合并。 
+
+3、join
+left.join(right,on=key_or_keys)=
+pd.merge(left,right,left_on=key_or_keys,right_index=True,how='left',sort=False)
